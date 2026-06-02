@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Agentic Chat & LangSmith Inspector
 
-## Getting Started
+Portfolio project — a LangSmith-instrumented agentic platform that ships
+**datasets, experiments, custom evaluators, annotation queues, prompt hub,
+and an online evaluator** on production traces, running against a live
+multi-provider MCP chat in Next.js 16.
 
-First, run the development server:
+**Plan:** `~/.claude/plans/roll-into-project-3-gentle-giraffe.md`
+
+**Deploy target:** `johndegraft.app/projects/agentic-inspector` (Vercel,
+path-mounted under the apex — no edits to the live `johndegraft-app` repo).
+
+---
+
+## Modules
+
+| Status | Module | Surface |
+|---|---|---|
+| **M1 (in progress)** | Streaming chat + provider toggle | `/chat` |
+| M2a | `asi-readonly` MCP server + inspector trace panes | `/inspector` |
+| M2b | `draft-actions` MCP server + handshake panel | `/inspector` |
+| M3a | LangSmith datasets + 5 custom evaluators + experiments | `/inspector` |
+| M3b | Prompt Hub + annotation queue + online evaluator | `/inspector` |
+| M4a | `equity-audit` package + interactive fairness dashboard | `/equity` |
+| M4b | Recruiter polish + Vercel apex path deploy | — |
+
+---
+
+## Module 1 — what shipped
+
+- Next.js 16 App Router + React 19 + Tailwind v4.
+- `streamText` from Vercel AI SDK v6, wrapped via `langsmith/experimental/vercel`
+  so every turn lands as a LangSmith run with `provider`, `model_label`, and
+  `surface` metadata.
+- Multi-provider toggle: **Claude Sonnet 4.6 / GPT-4o / Llama 3.3 70B
+  (via Together AI)**. Provider entries are environment-gated — only providers
+  with an API key in `.env.local` show as enabled.
+- Built-in `next-devtools-mcp` registered in `.mcp.json` so a coding agent
+  cloning the repo discovers the running Next.js dev server's MCP endpoint
+  automatically.
+
+---
+
+## Quickstart (local)
 
 ```bash
+git clone https://github.com/JdeGraftJohnson/agentic-chat-inspector
+cd agentic-chat-inspector
+npm install
+cp .env.example .env.local   # set at least one provider key
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# open http://localhost:3000/chat
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Set `LANGSMITH_TRACING=true` and `LANGSMITH_API_KEY=…` to publish traces.
+Without those, the app runs fine and the LangSmith client no-ops silently.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Architecture (target)
 
-## Learn More
+```
+app/
+├── page.tsx          # project overview + 3-surface grid
+├── chat/             # M1 — streaming chat with provider toggle
+├── inspector/        # M2–M3 — LangSmith console mirror
+├── equity/           # M4 — interactive fairness dashboard
+└── api/
+    ├── chat/route.ts # streamText route handler (M1)
+    └── equity/       # proxies equity_audit (M4)
 
-To learn more about Next.js, take a look at the following resources:
+lib/
+├── providers.ts      # Anthropic / OpenAI / Together bindings
+├── langsmith.ts      # wrapAISDK + per-turn provider options
+└── mcp-client.ts     # MCP server registration (M2)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+mcp-servers/
+├── asi-readonly/     # M2a — 4 read tools
+└── draft-actions/    # M2b — 3 simulated write tools
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+evals/                # M3 — Python: clinical + tooluse + equity evaluators
+equity_audit/         # M4 — installable Python package
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Constraints
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **GitHub Actions billing is blocked account-wide.** Deploy via `vercel --prod`
+  CLI. Do not add workflow files that expect to execute.
+- **The live `johndegraft-app` repo is not edited as part of this project.**
+  The deploy mounts under the apex at `/projects/agentic-inspector/*` via
+  Vercel project domain config; linking from the live portfolio is a
+  separate post-stabilization task.
+- **Real data only.** The `asi-readonly` MCP server proxies live
+  `chat.johndegraft.app/api/feed/*` endpoints. No mocked Cosmos responses.
+
+---
+
+## License
+
+MIT.
