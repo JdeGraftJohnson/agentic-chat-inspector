@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.81",
+    "@ai-sdk/mcp": "^1.0.45",
     "@ai-sdk/openai": "^3.0.67",
     "@ai-sdk/react": "^3.0.197",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "ai": "^6.0.195",
     "langsmith": "^0.7.3",
     "next": "16.2.7",

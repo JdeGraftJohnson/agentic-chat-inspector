@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "documents": [
+    {
+      "id": "project-overview",
+      "title": "Agentic Chat & LangSmith Inspector — overview",
+      "text": "A LangSmith-instrumented agentic platform that ships datasets, experiments, custom evaluators, annotation queues, prompt hub, and an online evaluator on production traces, running against a live multi-provider MCP chat in Next.js 16. Two MCP servers compose the tool surface: clinical-rag-mcp (read-only, healthcare-grounded — PubMed, NICE, HAPI FHIR R4 sandbox, kb.search) and draft-actions-mcp (simulated write tools). Evaluators are registered as LangSmith @run_evaluator custom evaluators, with clinical judges imported from the clinical-rag-eval Python package and equity evaluators from the equity-audit package."
+    },
+    {
+      "id": "langsmith-surfaces",
+      "title": "LangSmith surfaces this project demonstrates",
+      "text": "Tracing, datasets, experiments, custom evaluators, annotation queue, prompt hub, online evaluators. Every chat turn is wrapped with wrapAISDK from langsmith/experimental/vercel so it lands as a LangSmith run tagged with provider, model_label, and surface. The inspector tab mirrors the LangSmith console (Projects / Datasets & Testing / Annotation Queues / Playground / Prompts) and deep-links each panel to the live LangSmith URL. The portfolio README embeds four public shareable LangSmith links: a trace, a dataset, an experiment table, and an annotation queue."
+    },
+    {
+      "id": "portfolio-context",
+      "title": "Portfolio context — how this project fits",
+      "text": "Third leg of a healthcare-AI portfolio. clinical-rag-eval ships the judges Python package (deterministic + LLM judges) consumed by this project as LangSmith evaluators. The NHS Clinical Decision Support RAG Assistant lives at chat.johndegraft.app/rag and uses the same NICE-corpus pattern. The AI Health Equity Audit Tool, originally planned as a one-shot PDF generator, is being revamped into a pip-installable equity-audit Python package, an interactive /equity dashboard inside this app, and a HealthEquityEvaluator LangSmith plugin — three surfaces over one library, with fairness evaluator code reused from fairlearn."
+    },
+    {
+      "id": "design-decisions",
+      "title": "Key design decisions",
+      "text": "ADR-1: one Next.js app at johndegraft.app/projects/agentic-inspector (path-mounted under apex, no edits to the johndegraft-app repo). ADR-2: equity audit becomes a library + dashboard + LangSmith plugin triad, not a one-shot CLI. ADR-3: LangSmith is the eval backbone — judges run as @run_evaluator functions via langsmith.evaluate(), no homegrown FastAPI scoring service. ADR-4: one cheap online evaluator (PHI/secret regex) runs against every production trace; heavyweight LLM judges stay dataset-only. ADR-5: NICE ESF Tier B / NHS Core20PLUS5 / UK GDPR Art. 22 framework overlays carry forward unchanged. ADR-5b: MCP read tools use the same healthcare data sources the rest of the portfolio cites (PubMed / NICE / FHIR R4), not generic public data."
+    },
+    {
+      "id": "constraints",
+      "title": "Constraints and rules",
+      "text": "GitHub Actions billing is blocked account-wide — deploy via vercel --prod, not via gh workflow run. The live johndegraft-app repo is not edited as part of this project. Real public data only; no PHI, no proprietary fintech feeds, no Cosmos credentials. LangSmith free tier rate limits are respected by sampling the online evaluator at 1-in-5; experiments run on demand. Synthetic biased toy model in /equity must produce a TIGHTEN verdict, not PASS, so severity bands visibly trigger."
+    }
+  ]
+}

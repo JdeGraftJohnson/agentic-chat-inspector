@@ -1,0 +1,71 @@
+{
+  "version": "1.0",
+  "captured_at": "2026-06-02",
+  "source_note": "Snapshot of public NICE guideline metadata. Titles and IDs are public; for the authoritative full guidance always consult nice.org.uk.",
+  "guidelines": [
+    {
+      "id": "NG28",
+      "title": "Type 2 diabetes in adults: management",
+      "topic": "Endocrinology",
+      "url": "https://www.nice.org.uk/guidance/ng28",
+      "summary": "Covers care of adults (aged 18+) with type 2 diabetes, including individualised HbA1c targets, drug treatment pathway (metformin → SGLT2i / GLP-1 / DPP-4 / sulfonylurea), structured education, foot care, and review of complications.",
+      "last_updated": "2024-06-25"
+    },
+    {
+      "id": "NG106",
+      "title": "Chronic heart failure in adults: diagnosis and management",
+      "topic": "Cardiology",
+      "url": "https://www.nice.org.uk/guidance/ng106",
+      "summary": "Specialist multidisciplinary assessment, NT-proBNP testing thresholds, first-line ACE inhibitor + beta-blocker, addition of MRA for HFrEF, escalation to SGLT2 inhibitors per 2023 update, and palliative-care planning.",
+      "last_updated": "2023-11-15"
+    },
+    {
+      "id": "NG136",
+      "title": "Hypertension in adults: diagnosis and management",
+      "topic": "Cardiology",
+      "url": "https://www.nice.org.uk/guidance/ng136",
+      "summary": "ABPM/HBPM confirmation, staged thresholds (stage 1/2/severe), step-up pharmacological pathway (ACE-i/ARB → CCB → thiazide-like diuretic → spironolactone), and combined CVD risk assessment.",
+      "last_updated": "2022-11-21"
+    },
+    {
+      "id": "NG238",
+      "title": "Acute kidney injury: prevention, detection and management",
+      "topic": "Renal medicine",
+      "url": "https://www.nice.org.uk/guidance/ng148",
+      "summary": "Risk stratification, e-alerts for AKI stage 1+, fluid resuscitation and renal-replacement triggers, drug-dose adjustments, and discharge follow-up to detect missed CKD progression.",
+      "last_updated": "2019-12-18"
+    },
+    {
+      "id": "NG222",
+      "title": "Stroke and transient ischaemic attack in over 16s",
+      "topic": "Neurology",
+      "url": "https://www.nice.org.uk/guidance/ng128",
+      "summary": "Hyper-acute imaging and thrombolysis pathway, thrombectomy eligibility windows, secondary prevention (antiplatelets, statins, BP control), and post-stroke rehabilitation referrals.",
+      "last_updated": "2023-04-13"
+    },
+    {
+      "id": "NG12",
+      "title": "Suspected cancer: recognition and referral",
+      "topic": "Oncology",
+      "url": "https://www.nice.org.uk/guidance/ng12",
+      "summary": "Two-week-wait referral criteria across cancer sites, safety-netting for ambiguous symptoms, and primary-care direct-access investigations.",
+      "last_updated": "2023-10-11"
+    },
+    {
+      "id": "QS9",
+      "title": "Quality standard: depression in adults",
+      "topic": "Mental health",
+      "url": "https://www.nice.org.uk/guidance/qs8",
+      "summary": "Stepped-care model, PHQ-9 monitoring, IAPT routing, and combined CBT-plus-antidepressant for moderate-to-severe depression.",
+      "last_updated": "2021-06-15"
+    },
+    {
+      "id": "NG191",
+      "title": "COVID-19 rapid guideline: managing COVID-19",
+      "topic": "Infectious disease",
+      "url": "https://www.nice.org.uk/guidance/ng191",
+      "summary": "Risk stratification for antiviral/monoclonal therapy, hospital oxygen targets, post-COVID syndrome assessment, and long-COVID referral pathways.",
+      "last_updated": "2024-09-05"
+    }
+  ]
+}

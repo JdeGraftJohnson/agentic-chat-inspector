@@ -17,8 +17,8 @@ path-mounted under the apex — no edits to the live `johndegraft-app` repo).
 | Status | Module | Surface |
 |---|---|---|
 | **M1 (in progress)** | Streaming chat + provider toggle | `/chat` |
-| M2a | `asi-readonly` MCP server + inspector trace panes | `/inspector` |
-| M2b | `draft-actions` MCP server + handshake panel | `/inspector` |
+| M2a | `clinical-rag-mcp` server (PubMed · NICE · FHIR R4 · kb.search) | `/inspector` |
+| M2b | `draft-actions-mcp` server + handshake panel | `/inspector` |
 | M3a | LangSmith datasets + 5 custom evaluators + experiments | `/inspector` |
 | M3b | Prompt Hub + annotation queue + online evaluator | `/inspector` |
 | M4a | `equity-audit` package + interactive fairness dashboard | `/equity` |
@@ -75,8 +75,9 @@ lib/
 └── mcp-client.ts     # MCP server registration (M2)
 
 mcp-servers/
-├── asi-readonly/     # M2a — 4 read tools
-└── draft-actions/    # M2b — 3 simulated write tools
+├── clinical-rag-mcp/    # M2a — 4 healthcare read tools (PubMed, NICE,
+│                        #       HAPI FHIR R4 sandbox, kb.search)
+└── draft-actions-mcp/   # M2b — 3 simulated write tools
 
 evals/                # M3 — Python: clinical + tooluse + equity evaluators
 equity_audit/         # M4 — installable Python package
@@ -92,8 +93,10 @@ equity_audit/         # M4 — installable Python package
   The deploy mounts under the apex at `/projects/agentic-inspector/*` via
   Vercel project domain config; linking from the live portfolio is a
   separate post-stabilization task.
-- **Real data only.** The `asi-readonly` MCP server proxies live
-  `chat.johndegraft.app/api/feed/*` endpoints. No mocked Cosmos responses.
+- **Real public data only.** The `clinical-rag-mcp` server consumes public
+  healthcare sources (PubMed E-utils, NICE public guidelines, HAPI FHIR R4
+  public sandbox with synthetic patients) plus a local vector index over
+  this repo's docs and a NICE corpus snapshot. No PHI, no proprietary data.
 
 ---
 
