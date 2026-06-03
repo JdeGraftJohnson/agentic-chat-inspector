@@ -4,20 +4,20 @@ const SURFACES = [
   {
     href: "/chat",
     title: "Streaming agentic chat",
-    body: "Multi-provider toggle (Claude · GPT-4o · Llama 3.3 70B). Every turn traced to LangSmith via wrapAISDK.",
-    status: "M1 — live",
+    body: "Claude subscription · Claude API · GPT-4o · Llama 3.3 70B. Every turn traced to LangSmith, two MCP servers wired (7 tools total).",
+    status: "live",
   },
   {
     href: "/inspector",
     title: "Inspector",
-    body: "LangSmith console mirror — traces, datasets, experiments, annotation queue. Each panel deep-links to live LangSmith.",
-    status: "M2–M3 — pending",
+    body: "LangSmith console mirror — MCP handshake, Prompt Hub version, online PHI/secret evaluator, annotation queue. Deep-links to live LangSmith.",
+    status: "live",
   },
   {
     href: "/equity",
     title: "Health Equity Audit",
-    body: "Interactive fairness viewer backed by the equity-audit Python package. NICE ESF Tier B · NHS Core20PLUS5 · UK GDPR Art. 22.",
-    status: "M4 — pending",
+    body: "Interactive fairness dashboard backed by equity-audit. NICE ESF Tier B · NHS Core20PLUS5 · UK GDPR Art. 22 · HIPAA (NIST SP 800-66r2).",
+    status: "live",
   },
 ];
 
@@ -33,10 +33,20 @@ export default function Home() {
         </h1>
         <p className="max-w-2xl text-sm leading-relaxed text-zinc-400">
           A LangSmith-instrumented agentic platform — datasets, experiments,
-          custom evaluators, annotation queues, prompt hub, and an online
-          evaluator on production traces — running against a live multi-provider
-          MCP chat. Cross-links a clinical RAG eval harness and a reusable
-          health-equity fairness library.
+          7 custom evaluators, annotation queues, prompt hub, and an online
+          PHI/secret evaluator on production traces — running against a live
+          multi-provider MCP chat. Cross-links a clinical RAG eval harness
+          and a reusable health-equity fairness library (HIPAA mapped per
+          NIST SP 800-66r2).
+        </p>
+        <p className="text-xs text-zinc-500">
+          Repo ·{" "}
+          <a
+            href="https://github.com/JdeGraftJohnson/agentic-chat-inspector"
+            className="underline-offset-4 hover:underline"
+          >
+            github.com/JdeGraftJohnson/agentic-chat-inspector
+          </a>
         </p>
       </header>
 
