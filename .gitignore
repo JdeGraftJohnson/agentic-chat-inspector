@@ -42,3 +42,9 @@ yarn-error.log*
 next-env.d.ts
 .env.local
 .env
+
+# evals python
+/evals/.venv
+/evals/uv.lock
+__pycache__/
+*.egg-info/
