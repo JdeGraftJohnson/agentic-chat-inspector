@@ -16,7 +16,16 @@ harness and a reusable health-equity fairness library.
 
 **Project plan:** `~/.claude/plans/roll-into-project-3-gentle-giraffe.md`
 
-## Try the live LangSmith artifacts
+## Try it
+
+| Surface | Live | Notes |
+|---|---|---|
+| LangSmith showcase (links below) | ✅ Live, public, no sign-in | The headline recruiter artifact |
+| `/equity` interactive fairness dashboard | ✅ Live at [johndegraft.app/projects/agentic-inspector/equity](https://johndegraft.app/projects/agentic-inspector/equity) | Server-rendered from the pre-baked TIGHTEN audit |
+| `/inspector` MCP handshake + LangSmith console mirror | ✅ Live at [johndegraft.app/projects/agentic-inspector/inspector](https://johndegraft.app/projects/agentic-inspector/inspector) | Live MCP probe + tool registry |
+| `/chat` streaming agentic chat | 🟡 Clone-locally exercise | The deployed surface intentionally surfaces a banner explaining how to enable a provider locally. The chat code, MCP wiring, and LangSmith tracing all run end-to-end when you `npm run dev` with either a `claude` CLI login (no key) or an API key. |
+
+## Live LangSmith artifacts
 
 The full LangSmith showcase is public; no sign-in required to view.
 
