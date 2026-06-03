@@ -40,17 +40,18 @@ def experiment(
         typer.Option(help="Where /api/chat is reachable. Local dev or deployed URL."),
     ] = "http://localhost:3000/api/chat",
     providers: Annotated[
-        list[str],
+        str,
         typer.Option(
-            help="Provider IDs to fan out across. One LangSmith experiment per provider.",
+            help="Comma-separated provider IDs. One LangSmith experiment per provider.",
         ),
-    ] = ["anthropic", "openai", "together"],
+    ] = "claude-subscription",
     max_concurrency: Annotated[int, typer.Option(min=1, max=8)] = 4,
 ) -> None:
     """Run langsmith.evaluate() over the golden set across the given providers."""
+    provider_list = [p.strip() for p in providers.split(",") if p.strip()]
     runs = run_experiment(
         target_url=target_url,
-        providers=providers,
+        providers=provider_list,
         max_concurrency=max_concurrency,
     )
     table = Table(title="Experiments fired")
