@@ -19,8 +19,8 @@ path-mounted under the apex — no edits to the live `johndegraft-app` repo).
 | **M1 (in progress)** | Streaming chat + provider toggle | `/chat` |
 | M2a | `clinical-rag-mcp` server (PubMed · NICE · FHIR R4 · kb.search) | `/inspector` |
 | M2b | `draft-actions-mcp` server + handshake panel | `/inspector` |
-| M3a | LangSmith datasets + 5 custom evaluators + experiments | `/inspector` |
-| M3b | Prompt Hub + annotation queue + online evaluator | `/inspector` |
+| **M3a — live** | LangSmith dataset `agentic-chat-inspector-golden-set-v1` (10 prompts) + 5 custom evaluators (4 wrap clinical-rag-eval judges, 1 native tool-use) + experiment runner | `/inspector` |
+| **M3b — live** | Prompt Hub commits (`v1`, `v2`) + annotation queue `agentic-chat-inspector-tool-use-review` + online evaluator `online.phi_secret_leakage` | `/inspector` |
 | M4a | `equity-audit` package + interactive fairness dashboard | `/equity` |
 | M4b | Recruiter polish + Vercel apex path deploy | — |
 
@@ -54,6 +54,15 @@ npm run dev
 
 Set `LANGSMITH_TRACING=true` and `LANGSMITH_API_KEY=…` to publish traces.
 Without those, the app runs fine and the LangSmith client no-ops silently.
+
+### Provider keys — note for public clones
+
+`ANTHROPIC_API_KEY` / `OPENAI_API_KEY` / `TOGETHER_API_KEY` in `.env.example`
+are **placeholders for public users**. Drop in your own keys to run `/chat`
+against the corresponding provider. The operator's local runs use the
+Claude Agent SDK with subscription auth (wired in a later milestone), so
+the operator path doesn't require `ANTHROPIC_API_KEY`. Either path produces
+the same LangSmith traces.
 
 ---
 

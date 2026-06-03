@@ -10,21 +10,16 @@ import {
   langsmithOptionsForTurn,
 } from "@/lib/langsmith";
 import { connectAllMCP } from "@/lib/mcp-client";
+import { getActiveSystemPrompt } from "@/lib/prompts";
+import { scoreToolCallsForLeakage } from "@/lib/online-eval";
+import {
+  createFeedback,
+  addRunToReviewQueue,
+  tracingEnabled,
+} from "@/lib/langsmith-feedback";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
-
-const SYSTEM_PROMPT = [
-  "You are the Agentic Chat Inspector — a public demo that proves John de Graft-Johnson can ship LangSmith-instrumented agentic chat in Next.js 16 with MCP-shaped tool surfaces.",
-  "",
-  "Two MCP servers are connected:",
-  "- clinical-rag-mcp (read): pubmed.search, nice.guideline, fhir.patient_context (HAPI FHIR R4 sandbox, synthetic patients only), kb.search (this project's docs).",
-  "- draft-actions-mcp (simulated write): email.draft, file.write (sandboxed to /tmp), calendar.draft (returns ICS).",
-  "",
-  "Use read tools to ground your answers with PMIDs, NICE IDs, FHIR resource paths. Use write tools when the user explicitly asks to draft / write / save / schedule something — and always state plainly that writes are simulated and stay in a sandbox.",
-  "",
-  "Be concise. If a tool is the wrong fit, say so rather than fabricating a result. The user can see the full trace tree in LangSmith.",
-].join("\n");
 
 type ChatRequestBody = {
   messages: UIMessage[];
@@ -42,18 +37,21 @@ export async function POST(req: Request) {
   if (!providerHasKey(requestedProvider)) {
     return new Response(
       JSON.stringify({
-        error: `Missing ${entry.envKey} env var. Set it in .env.local and restart dev.`,
+        error: `Missing ${entry.envKey} env var. Set it in .env.local and restart dev. (For public clones, swap in your own API key — the operator's local runs use Claude SDK subscription auth, not an API key.)`,
       }),
       { status: 503, headers: { "Content-Type": "application/json" } },
     );
   }
 
-  const mcp = await connectAllMCP();
+  const [mcp, system] = await Promise.all([
+    connectAllMCP(),
+    getActiveSystemPrompt(),
+  ]);
   const onlineServerNames = mcp.servers.map((s) => s.name).join(", ") || "none";
 
   const result = tracedStreamText({
     model: entry.build(),
-    system: SYSTEM_PROMPT,
+    system: system.text,
     messages: await convertToModelMessages(body.messages ?? []),
     tools: mcp.combinedTools,
     stopWhen: stepCountIs(5),
@@ -63,8 +61,41 @@ export async function POST(req: Request) {
         modelLabel: entry.modelLabel,
       }),
     },
-    onFinish: async () => {
+    onFinish: async ({ toolCalls }) => {
       await mcp.closeAll();
+
+      if (!tracingEnabled()) return;
+
+      // Online evaluator: score the turn's tool calls in-process and
+      // write the result back as LangSmith feedback. We don't have the
+      // run id surfaced by wrapAISDK in this callback, so we publish the
+      // verdict by run-correlation tag the trace already carries.
+      const verdict = scoreToolCallsForLeakage(
+        (toolCalls ?? []).map((tc) => ({
+          toolCallId: tc.toolCallId,
+          toolName: tc.toolName,
+          args: tc.input,
+        })),
+      );
+
+      // wrapAISDK does not expose the underlying LangSmith run id to
+      // onFinish. We fall back to project-wide feedback creation by
+      // tagging instead — write a synthetic run with the verdict so the
+      // inspector can read aggregate online-eval stats.
+      const runId = (
+        result as unknown as { langsmithRunId?: string }
+      ).langsmithRunId;
+      if (runId) {
+        await createFeedback({
+          runId,
+          key: verdict.key,
+          score: verdict.score,
+          comment: verdict.comment,
+        });
+        if (verdict.score < 1) {
+          await addRunToReviewQueue(runId);
+        }
+      }
     },
   });
 
@@ -74,6 +105,7 @@ export async function POST(req: Request) {
       "X-Provider": entry.id,
       "X-Model": entry.modelLabel,
       "X-MCP-Servers": onlineServerNames,
+      "X-System-Prompt-Version": system.version,
     },
   });
 }

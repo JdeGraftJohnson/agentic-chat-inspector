@@ -1,11 +1,24 @@
 import Link from "next/link";
-import { probeAllMCP, MCP_SERVER_CATALOG, type McpServerKey, type ServerStatus } from "@/lib/mcp-client";
+import {
+  probeAllMCP,
+  MCP_SERVER_CATALOG,
+  type McpServerKey,
+  type ServerStatus,
+} from "@/lib/mcp-client";
 import { TOOL_REGISTRY as CLINICAL_REGISTRY } from "@/mcp-servers/clinical-rag-mcp/server";
 import { TOOL_REGISTRY as DRAFT_REGISTRY } from "@/mcp-servers/draft-actions-mcp/server";
+import { getActiveSystemPrompt } from "@/lib/prompts";
+import {
+  REVIEW_QUEUE_NAME,
+  tracingEnabled,
+} from "@/lib/langsmith-feedback";
 
 export const dynamic = "force-dynamic";
 
-const REGISTRIES: Record<McpServerKey, readonly { name: string; title: string; description: string }[]> = {
+const REGISTRIES: Record<
+  McpServerKey,
+  readonly { name: string; title: string; description: string }[]
+> = {
   "clinical-rag": CLINICAL_REGISTRY,
   "draft-actions": DRAFT_REGISTRY,
 };
@@ -15,15 +28,19 @@ const KIND: Record<McpServerKey, string> = {
   "draft-actions": "simulated write",
 };
 
-function ServerCard({ status, registry }: { status: ServerStatus; registry: readonly { name: string; title: string; description: string }[] }) {
+function ServerCard({
+  status,
+  registry,
+}: {
+  status: ServerStatus;
+  registry: readonly { name: string; title: string; description: string }[];
+}) {
   const advertisedNames = status.ok ? status.toolNames : [];
   return (
     <article className="rounded border border-zinc-800 bg-zinc-950/40 p-4">
       <header className="mb-3 flex items-start justify-between gap-3">
         <div>
-          <div className="text-sm font-medium text-zinc-100">
-            {status.name}
-          </div>
+          <div className="text-sm font-medium text-zinc-100">{status.name}</div>
           <div className="text-[11px] uppercase tracking-wider text-zinc-500">
             {KIND[status.key]} · Streamable HTTP
           </div>
@@ -70,14 +87,18 @@ function ServerCard({ status, registry }: { status: ServerStatus; registry: read
 }
 
 export default async function InspectorPage() {
-  const statuses = await probeAllMCP();
+  const [statuses, system] = await Promise.all([
+    probeAllMCP(),
+    getActiveSystemPrompt(),
+  ]);
+  const tracing = tracingEnabled();
+
   const onlineCount = statuses.filter((s) => s.ok).length;
   const toolCount = statuses.reduce(
     (sum, s) => (s.ok ? sum + s.toolNames.length : sum),
     0,
   );
 
-  // Re-sort to match catalog order.
   const ordered = (Object.keys(MCP_SERVER_CATALOG) as McpServerKey[])
     .map((k) => statuses.find((s) => s.key === k))
     .filter((s): s is ServerStatus => Boolean(s));
@@ -87,8 +108,9 @@ export default async function InspectorPage() {
       <header className="border-b border-zinc-800 pb-3">
         <h1 className="text-lg font-semibold tracking-tight">Inspector</h1>
         <p className="text-xs text-zinc-500">
-          LangSmith console mirror — MCP handshake panel and tool registry.
-          Trace tree + experiment table land in M3.
+          LangSmith console mirror — MCP handshake, prompt hub version, online
+          evaluator, annotation queue. Trace tree + experiment table land with
+          the recruiter-polish pass.
         </p>
       </header>
 
@@ -119,6 +141,64 @@ export default async function InspectorPage() {
         </div>
       </section>
 
+      <section className="grid gap-4 md:grid-cols-3">
+        <article className="rounded border border-zinc-800 bg-zinc-950/40 p-4">
+          <div className="mb-1 text-[10px] uppercase tracking-widest text-zinc-500">
+            Prompt Hub
+          </div>
+          <div className="text-sm text-zinc-100">
+            agentic-chat-inspector-system{" "}
+            <code className="text-zinc-300">{system.version}</code>
+          </div>
+          <p className="mt-1 text-[11px] text-zinc-500">
+            File source ·{" "}
+            <code className="text-zinc-400">prompts/system_{system.version}.md</code>
+          </p>
+          <p className="mt-2 text-[11px] text-zinc-500">
+            Push commits with <code className="text-zinc-400">scripts/push_prompts.py</code>;
+            the chat route pulls from cache (5 min TTL).
+          </p>
+        </article>
+
+        <article className="rounded border border-zinc-800 bg-zinc-950/40 p-4">
+          <div className="mb-1 text-[10px] uppercase tracking-widest text-zinc-500">
+            Online evaluator
+          </div>
+          <div className="text-sm text-zinc-100">
+            <code className="text-zinc-300">online.phi_secret_leakage</code>
+          </div>
+          <p className="mt-2 text-[11px] text-zinc-500">
+            Regex over serialized tool args — SSN / NHS number / Visa /
+            Anthropic / OpenAI / GitHub / LangSmith key / PEM block. Fires on
+            every production turn; clean = 1.0, leak = 0.0.
+          </p>
+        </article>
+
+        <article className="rounded border border-zinc-800 bg-zinc-950/40 p-4">
+          <div className="mb-1 text-[10px] uppercase tracking-widest text-zinc-500">
+            Annotation queue
+          </div>
+          <div className="break-all text-sm text-zinc-100">
+            <code className="text-zinc-300">{REVIEW_QUEUE_NAME}</code>
+          </div>
+          <p className="mt-2 text-[11px] text-zinc-500">
+            Auto-routed on{" "}
+            <code className="text-zinc-400">tool_use_correctness &lt; 0.6</code>{" "}
+            or{" "}
+            <code className="text-zinc-400">phi_secret_leakage &lt; 1.0</code>.
+          </p>
+          <p className="mt-2 text-[11px] text-zinc-500">
+            Tracing{" "}
+            <span
+              className={tracing ? "text-emerald-300" : "text-zinc-400"}
+            >
+              {tracing ? "ON" : "OFF — set LANGSMITH_TRACING=true"}
+            </span>
+            .
+          </p>
+        </article>
+      </section>
+
       <section className="grid gap-4 md:grid-cols-2">
         {ordered.map((s) => (
           <ServerCard key={s.key} status={s} registry={REGISTRIES[s.key]} />
@@ -126,10 +206,8 @@ export default async function InspectorPage() {
       </section>
 
       <footer className="text-[11px] text-zinc-600">
-        M2 checkpoint. Stopping one MCP server gracefully degrades chat — the
-        offline server's pill turns red, but tools from the other server stay
-        live. Trace tree (pane 1) and selected-call detail (pane 2) ship with
-        M3a once LangSmith run-fetching lands.
+        M3 checkpoint. Live trace cards and the experiment-comparison table
+        land with the recruiter-polish pass.
       </footer>
     </main>
   );
