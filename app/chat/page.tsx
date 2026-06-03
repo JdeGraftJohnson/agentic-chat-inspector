@@ -1,13 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { PROVIDERS, DEFAULT_PROVIDER, type ProviderId } from "@/lib/providers";
+import {
+  PROVIDERS,
+  DEFAULT_PROVIDER,
+  type ProviderId,
+} from "@/lib/providers";
+
+type ProviderStatus = {
+  id: ProviderId;
+  label: string;
+  modelLabel: string;
+  available: boolean;
+  reason?: string;
+};
+
+type StatusPayload = {
+  statuses: ProviderStatus[];
+  anyAvailable: boolean;
+  hostedOnVercel: boolean;
+};
 
 export default function ChatPage() {
   const [provider, setProvider] = useState<ProviderId>(DEFAULT_PROVIDER);
   const [input, setInput] = useState("");
+  const [statusPayload, setStatusPayload] = useState<StatusPayload | null>(
+    null,
+  );
+
+  useEffect(() => {
+    fetch("/api/providers/status", { cache: "no-store" })
+      .then((r) => r.json() as Promise<StatusPayload>)
+      .then((data) => {
+        setStatusPayload(data);
+        if (data.anyAvailable) {
+          const current = data.statuses.find((s) => s.id === provider);
+          if (!current || !current.available) {
+            const firstAvail = data.statuses.find((s) => s.available);
+            if (firstAvail) setProvider(firstAvail.id);
+          }
+        }
+      })
+      .catch(() => setStatusPayload(null));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const { messages, sendMessage, status, error } = useChat({
     transport: new DefaultChatTransport({
@@ -19,6 +57,10 @@ export default function ChatPage() {
   });
 
   const isStreaming = status === "submitted" || status === "streaming";
+  const noProviders = statusPayload !== null && !statusPayload.anyAvailable;
+  const selectedStatus = statusPayload?.statuses.find((s) => s.id === provider);
+  const selectedUnavailable =
+    statusPayload !== null && selectedStatus !== undefined && !selectedStatus.available;
 
   return (
     <main className="mx-auto flex h-full max-w-3xl flex-1 flex-col gap-4 px-4 py-6">
@@ -38,15 +80,47 @@ export default function ChatPage() {
             disabled={isStreaming}
             className="rounded border border-zinc-700 bg-zinc-900 px-2 py-1 text-zinc-100 disabled:opacity-50"
           >
-            {Object.values(PROVIDERS).map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.label} — {p.modelLabel}
-                {p.kind === "subscription" ? " (no API key)" : ""}
-              </option>
-            ))}
+            {Object.values(PROVIDERS).map((p) => {
+              const s = statusPayload?.statuses.find((x) => x.id === p.id);
+              const available = s ? s.available : true;
+              return (
+                <option key={p.id} value={p.id}>
+                  {p.label} — {p.modelLabel}
+                  {p.kind === "subscription" ? " (no key)" : ""}
+                  {available ? "" : " · unavailable"}
+                </option>
+              );
+            })}
           </select>
         </label>
       </header>
+
+      {noProviders && (
+        <div className="rounded border border-amber-900/40 bg-amber-950/20 p-3 text-xs leading-relaxed text-amber-100/80">
+          <p className="mb-1 font-medium text-amber-200">
+            No chat providers configured on this deployment.
+          </p>
+          <p>
+            The LangSmith showcase (datasets, evaluators, experiments, prompt
+            hub, annotation queue, online evaluator) and the equity audit
+            dashboard remain fully functional and are linked from the project
+            README. To exercise the live chat surface, clone the repo and
+            either log into Claude Code (
+            <code className="text-amber-200">claude</code> CLI) or set an{" "}
+            <code className="text-amber-200">ANTHROPIC_API_KEY</code> /{" "}
+            <code className="text-amber-200">OPENAI_API_KEY</code> /{" "}
+            <code className="text-amber-200">TOGETHER_API_KEY</code> in{" "}
+            <code className="text-amber-200">.env.local</code>.
+          </p>
+        </div>
+      )}
+
+      {selectedUnavailable && !noProviders && (
+        <div className="rounded border border-zinc-800 bg-zinc-950/40 p-3 text-xs text-zinc-400">
+          <span className="text-zinc-200">{selectedStatus?.label}</span> is
+          unavailable here. {selectedStatus?.reason ?? ""}
+        </div>
+      )}
 
       <section className="flex-1 space-y-4 overflow-y-auto">
         {messages.length === 0 && (
@@ -84,7 +158,7 @@ export default function ChatPage() {
         onSubmit={(e) => {
           e.preventDefault();
           const text = input.trim();
-          if (!text || isStreaming) return;
+          if (!text || isStreaming || selectedUnavailable) return;
           sendMessage({ text });
           setInput("");
         }}
@@ -93,14 +167,20 @@ export default function ChatPage() {
           name="message"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask anything…"
+          placeholder={
+            selectedUnavailable
+              ? "Provider unavailable on this deployment"
+              : "Ask anything…"
+          }
           className="flex-1 rounded border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 outline-none focus:border-zinc-500 disabled:opacity-50"
-          disabled={isStreaming}
+          disabled={isStreaming || selectedUnavailable}
           autoFocus
         />
         <button
           type="submit"
-          disabled={isStreaming || input.trim().length === 0}
+          disabled={
+            isStreaming || selectedUnavailable || input.trim().length === 0
+          }
           className="rounded bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-900 hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
         >
           {isStreaming ? "Streaming…" : "Send"}
