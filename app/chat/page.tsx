@@ -41,6 +41,7 @@ export default function ChatPage() {
             {Object.values(PROVIDERS).map((p) => (
               <option key={p.id} value={p.id}>
                 {p.label} — {p.modelLabel}
+                {p.kind === "subscription" ? " (no API key)" : ""}
               </option>
             ))}
           </select>
