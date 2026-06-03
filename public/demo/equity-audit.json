@@ -1,0 +1,786 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-06-03T00:56:56.101054",
+  "model_name": "synthetic_disengagement_v0",
+  "model_auc": 0.7129603661718352,
+  "n_predictions": 8000,
+  "threshold": 0.5,
+  "slices": [
+    {
+      "axis": "imd_quintile",
+      "baseline_label": "5 (least deprived)",
+      "cells": [
+        {
+          "label": "1 (most deprived)",
+          "n": 1600,
+          "metric": "equalized_odds",
+          "value": 0.0932711086311411,
+          "delta_vs_baseline": 0.0932711086311411,
+          "verdict": "tighten"
+        },
+        {
+          "label": "1 (most deprived)",
+          "n": 1600,
+          "metric": "demographic_parity",
+          "value": 0.073125,
+          "delta_vs_baseline": -0.05562500000000001,
+          "verdict": "tighten"
+        },
+        {
+          "label": "1 (most deprived)",
+          "n": 1600,
+          "metric": "calibration_gap",
+          "value": 0.03444453875378446,
+          "delta_vs_baseline": -0.0005690631019894463,
+          "verdict": "pass"
+        },
+        {
+          "label": "1 (most deprived)",
+          "n": 1600,
+          "metric": "fnr_gap",
+          "value": 0.8404494382022472,
+          "delta_vs_baseline": 0.09327110863114108,
+          "verdict": "tighten"
+        },
+        {
+          "label": "2",
+          "n": 1600,
+          "metric": "equalized_odds",
+          "value": 0.029626922070031786,
+          "delta_vs_baseline": 0.029626922070031786,
+          "verdict": "pass"
+        },
+        {
+          "label": "2",
+          "n": 1600,
+          "metric": "demographic_parity",
+          "value": 0.113125,
+          "delta_vs_baseline": -0.015625,
+          "verdict": "pass"
+        },
+        {
+          "label": "2",
+          "n": 1600,
+          "metric": "calibration_gap",
+          "value": 0.029463785554439126,
+          "delta_vs_baseline": -0.005549816301334783,
+          "verdict": "pass"
+        },
+        {
+          "label": "2",
+          "n": 1600,
+          "metric": "fnr_gap",
+          "value": 0.7768052516411379,
+          "delta_vs_baseline": 0.029626922070031814,
+          "verdict": "pass"
+        },
+        {
+          "label": "3",
+          "n": 1600,
+          "metric": "equalized_odds",
+          "value": 0.017821487759694887,
+          "delta_vs_baseline": 0.017821487759694887,
+          "verdict": "pass"
+        },
+        {
+          "label": "3",
+          "n": 1600,
+          "metric": "demographic_parity",
+          "value": 0.119375,
+          "delta_vs_baseline": -0.009375000000000008,
+          "verdict": "pass"
+        },
+        {
+          "label": "3",
+          "n": 1600,
+          "metric": "calibration_gap",
+          "value": 0.02683178801719611,
+          "delta_vs_baseline": -0.008181813838577797,
+          "verdict": "pass"
+        },
+        {
+          "label": "3",
+          "n": 1600,
+          "metric": "fnr_gap",
+          "value": 0.7371937639198218,
+          "delta_vs_baseline": -0.00998456565128425,
+          "verdict": "pass"
+        },
+        {
+          "label": "4",
+          "n": 1600,
+          "metric": "equalized_odds",
+          "value": 0.011296246700080365,
+          "delta_vs_baseline": 0.011296246700080365,
+          "verdict": "pass"
+        },
+        {
+          "label": "4",
+          "n": 1600,
+          "metric": "demographic_parity",
+          "value": 0.125,
+          "delta_vs_baseline": -0.0037500000000000033,
+          "verdict": "pass"
+        },
+        {
+          "label": "4",
+          "n": 1600,
+          "metric": "calibration_gap",
+          "value": 0.024855688658192245,
+          "delta_vs_baseline": -0.010157913197581664,
+          "verdict": "pass"
+        },
+        {
+          "label": "4",
+          "n": 1600,
+          "metric": "fnr_gap",
+          "value": 0.7584745762711864,
+          "delta_vs_baseline": 0.011296246700080337,
+          "verdict": "pass"
+        },
+        {
+          "label": "5 (least deprived)",
+          "n": 1600,
+          "metric": "equalized_odds",
+          "value": 0.0,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "5 (least deprived)",
+          "n": 1600,
+          "metric": "demographic_parity",
+          "value": 0.12875,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "5 (least deprived)",
+          "n": 1600,
+          "metric": "calibration_gap",
+          "value": 0.03501360185577391,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "5 (least deprived)",
+          "n": 1600,
+          "metric": "fnr_gap",
+          "value": 0.7471783295711061,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        }
+      ],
+      "worst_verdict": "tighten"
+    },
+    {
+      "axis": "ethnicity",
+      "baseline_label": "Mixed",
+      "cells": [
+        {
+          "label": "Black African",
+          "n": 794,
+          "metric": "equalized_odds",
+          "value": 0.019405912848535795,
+          "delta_vs_baseline": 0.019405912848535795,
+          "verdict": "pass"
+        },
+        {
+          "label": "Black African",
+          "n": 794,
+          "metric": "demographic_parity",
+          "value": 0.10957178841309824,
+          "delta_vs_baseline": -0.008624168041023061,
+          "verdict": "pass"
+        },
+        {
+          "label": "Black African",
+          "n": 794,
+          "metric": "calibration_gap",
+          "value": 0.03705130874345834,
+          "delta_vs_baseline": 0.010347859249585305,
+          "verdict": "pass"
+        },
+        {
+          "label": "Black African",
+          "n": 794,
+          "metric": "fnr_gap",
+          "value": 0.7735042735042735,
+          "delta_vs_baseline": 0.019405912848535878,
+          "verdict": "pass"
+        },
+        {
+          "label": "Mixed",
+          "n": 643,
+          "metric": "equalized_odds",
+          "value": 0.0,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "Mixed",
+          "n": 643,
+          "metric": "demographic_parity",
+          "value": 0.1181959564541213,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "Mixed",
+          "n": 643,
+          "metric": "calibration_gap",
+          "value": 0.026703449493873037,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "Mixed",
+          "n": 643,
+          "metric": "fnr_gap",
+          "value": 0.7540983606557377,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "Other",
+          "n": 538,
+          "metric": "equalized_odds",
+          "value": 0.018040654997176733,
+          "delta_vs_baseline": 0.018040654997176733,
+          "verdict": "pass"
+        },
+        {
+          "label": "Other",
+          "n": 538,
+          "metric": "demographic_parity",
+          "value": 0.10223048327137546,
+          "delta_vs_baseline": -0.01596547318274584,
+          "verdict": "pass"
+        },
+        {
+          "label": "Other",
+          "n": 538,
+          "metric": "calibration_gap",
+          "value": 0.04118611994602932,
+          "delta_vs_baseline": 0.01448267045215628,
+          "verdict": "pass"
+        },
+        {
+          "label": "Other",
+          "n": 538,
+          "metric": "fnr_gap",
+          "value": 0.7647058823529411,
+          "delta_vs_baseline": 0.01060752169720347,
+          "verdict": "pass"
+        },
+        {
+          "label": "South Asian",
+          "n": 779,
+          "metric": "equalized_odds",
+          "value": 0.010346083788706745,
+          "delta_vs_baseline": 0.010346083788706745,
+          "verdict": "pass"
+        },
+        {
+          "label": "South Asian",
+          "n": 779,
+          "metric": "demographic_parity",
+          "value": 0.11296534017971759,
+          "delta_vs_baseline": -0.0052306162744037155,
+          "verdict": "pass"
+        },
+        {
+          "label": "South Asian",
+          "n": 779,
+          "metric": "calibration_gap",
+          "value": 0.026474793227927895,
+          "delta_vs_baseline": -0.0002286562659451416,
+          "verdict": "pass"
+        },
+        {
+          "label": "South Asian",
+          "n": 779,
+          "metric": "fnr_gap",
+          "value": 0.7644444444444445,
+          "delta_vs_baseline": 0.010346083788706828,
+          "verdict": "pass"
+        },
+        {
+          "label": "White British",
+          "n": 4446,
+          "metric": "equalized_odds",
+          "value": 0.017901639344262282,
+          "delta_vs_baseline": 0.017901639344262282,
+          "verdict": "pass"
+        },
+        {
+          "label": "White British",
+          "n": 4446,
+          "metric": "demographic_parity",
+          "value": 0.11246063877642826,
+          "delta_vs_baseline": -0.005735317677693044,
+          "verdict": "pass"
+        },
+        {
+          "label": "White British",
+          "n": 4446,
+          "metric": "calibration_gap",
+          "value": 0.017924394738040878,
+          "delta_vs_baseline": -0.008779054755832159,
+          "verdict": "pass"
+        },
+        {
+          "label": "White British",
+          "n": 4446,
+          "metric": "fnr_gap",
+          "value": 0.772,
+          "delta_vs_baseline": 0.017901639344262366,
+          "verdict": "pass"
+        },
+        {
+          "label": "White Other",
+          "n": 800,
+          "metric": "equalized_odds",
+          "value": 0.04228172984199985,
+          "delta_vs_baseline": 0.04228172984199985,
+          "verdict": "pass"
+        },
+        {
+          "label": "White Other",
+          "n": 800,
+          "metric": "demographic_parity",
+          "value": 0.11125,
+          "delta_vs_baseline": -0.006945956454121299,
+          "verdict": "pass"
+        },
+        {
+          "label": "White Other",
+          "n": 800,
+          "metric": "calibration_gap",
+          "value": 0.053604688884203264,
+          "delta_vs_baseline": 0.026901239390330227,
+          "verdict": "pass"
+        },
+        {
+          "label": "White Other",
+          "n": 800,
+          "metric": "fnr_gap",
+          "value": 0.7963800904977375,
+          "delta_vs_baseline": 0.04228172984199985,
+          "verdict": "pass"
+        }
+      ],
+      "worst_verdict": "pass"
+    },
+    {
+      "axis": "age_band",
+      "baseline_label": "40-59",
+      "cells": [
+        {
+          "label": "18-39",
+          "n": 2545,
+          "metric": "equalized_odds",
+          "value": 0.006481792507993384,
+          "delta_vs_baseline": 0.006481792507993384,
+          "verdict": "pass"
+        },
+        {
+          "label": "18-39",
+          "n": 2545,
+          "metric": "demographic_parity",
+          "value": 0.1143418467583497,
+          "delta_vs_baseline": -0.0007660669107150547,
+          "verdict": "pass"
+        },
+        {
+          "label": "18-39",
+          "n": 2545,
+          "metric": "calibration_gap",
+          "value": 0.027554358939231104,
+          "delta_vs_baseline": 0.004678014715022719,
+          "verdict": "pass"
+        },
+        {
+          "label": "18-39",
+          "n": 2545,
+          "metric": "fnr_gap",
+          "value": 0.7635327635327636,
+          "delta_vs_baseline": -0.0064817925079933,
+          "verdict": "pass"
+        },
+        {
+          "label": "40-59",
+          "n": 2363,
+          "metric": "equalized_odds",
+          "value": 0.0,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "40-59",
+          "n": 2363,
+          "metric": "demographic_parity",
+          "value": 0.11510791366906475,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "40-59",
+          "n": 2363,
+          "metric": "calibration_gap",
+          "value": 0.022876344224208384,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "40-59",
+          "n": 2363,
+          "metric": "fnr_gap",
+          "value": 0.7700145560407569,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "60-74",
+          "n": 1925,
+          "metric": "equalized_odds",
+          "value": 0.019555840444426653,
+          "delta_vs_baseline": 0.019555840444426653,
+          "verdict": "pass"
+        },
+        {
+          "label": "60-74",
+          "n": 1925,
+          "metric": "demographic_parity",
+          "value": 0.1148051948051948,
+          "delta_vs_baseline": -0.00030271886386995517,
+          "verdict": "pass"
+        },
+        {
+          "label": "60-74",
+          "n": 1925,
+          "metric": "calibration_gap",
+          "value": 0.027018306223664457,
+          "delta_vs_baseline": 0.004141961999456073,
+          "verdict": "pass"
+        },
+        {
+          "label": "60-74",
+          "n": 1925,
+          "metric": "fnr_gap",
+          "value": 0.7504587155963303,
+          "delta_vs_baseline": -0.019555840444426598,
+          "verdict": "pass"
+        },
+        {
+          "label": "75+",
+          "n": 1167,
+          "metric": "equalized_odds",
+          "value": 0.05829869697129128,
+          "delta_vs_baseline": 0.05829869697129128,
+          "verdict": "tighten"
+        },
+        {
+          "label": "75+",
+          "n": 1167,
+          "metric": "demographic_parity",
+          "value": 0.09511568123393316,
+          "delta_vs_baseline": -0.019992232435131596,
+          "verdict": "pass"
+        },
+        {
+          "label": "75+",
+          "n": 1167,
+          "metric": "calibration_gap",
+          "value": 0.03550501300025367,
+          "delta_vs_baseline": 0.012628668776045283,
+          "verdict": "pass"
+        },
+        {
+          "label": "75+",
+          "n": 1167,
+          "metric": "fnr_gap",
+          "value": 0.8283132530120482,
+          "delta_vs_baseline": 0.05829869697129131,
+          "verdict": "tighten"
+        }
+      ],
+      "worst_verdict": "tighten"
+    },
+    {
+      "axis": "rurality",
+      "baseline_label": "Rural",
+      "cells": [
+        {
+          "label": "Rural",
+          "n": 1379,
+          "metric": "equalized_odds",
+          "value": 0.0,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "Rural",
+          "n": 1379,
+          "metric": "demographic_parity",
+          "value": 0.12327773749093546,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "Rural",
+          "n": 1379,
+          "metric": "calibration_gap",
+          "value": 0.032137474696062464,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "Rural",
+          "n": 1379,
+          "metric": "fnr_gap",
+          "value": 0.7639593908629442,
+          "delta_vs_baseline": 0.0,
+          "verdict": "pass"
+        },
+        {
+          "label": "Town/Fringe",
+          "n": 1737,
+          "metric": "equalized_odds",
+          "value": 0.01097258883248732,
+          "delta_vs_baseline": 0.01097258883248732,
+          "verdict": "pass"
+        },
+        {
+          "label": "Town/Fringe",
+          "n": 1737,
+          "metric": "demographic_parity",
+          "value": 0.11629245826137018,
+          "delta_vs_baseline": -0.0069852792295652805,
+          "verdict": "pass"
+        },
+        {
+          "label": "Town/Fringe",
+          "n": 1737,
+          "metric": "calibration_gap",
+          "value": 0.031853715967289586,
+          "delta_vs_baseline": -0.0002837587287728774,
+          "verdict": "pass"
+        },
+        {
+          "label": "Town/Fringe",
+          "n": 1737,
+          "metric": "fnr_gap",
+          "value": 0.757700205338809,
+          "delta_vs_baseline": -0.00625918552413518,
+          "verdict": "pass"
+        },
+        {
+          "label": "Urban",
+          "n": 4884,
+          "metric": "equalized_odds",
+          "value": 0.016154869484102066,
+          "delta_vs_baseline": 0.016154869484102066,
+          "verdict": "pass"
+        },
+        {
+          "label": "Urban",
+          "n": 4884,
+          "metric": "demographic_parity",
+          "value": 0.10708435708435708,
+          "delta_vs_baseline": -0.016193380406578375,
+          "verdict": "pass"
+        },
+        {
+          "label": "Urban",
+          "n": 4884,
+          "metric": "calibration_gap",
+          "value": 0.013127187278364979,
+          "delta_vs_baseline": -0.019010287417697485,
+          "verdict": "pass"
+        },
+        {
+          "label": "Urban",
+          "n": 4884,
+          "metric": "fnr_gap",
+          "value": 0.7790613718411552,
+          "delta_vs_baseline": 0.015101980978211027,
+          "verdict": "pass"
+        }
+      ],
+      "worst_verdict": "pass"
+    }
+  ],
+  "framework_verdicts": [
+    {
+      "framework": "NICE ESF Tier B",
+      "verdict": "tighten",
+      "passed": 4,
+      "tightened": 2,
+      "blocked": 0,
+      "items": [
+        {
+          "id": "B.2.1",
+          "description": "Documented data lineage from source to training feature, with privacy-preserving processing where applicable.",
+          "status": "pass",
+          "note": null
+        },
+        {
+          "id": "B.3.4",
+          "description": "Performance evaluated on a representative reference population, including relevant demographic subgroups (age, sex, ethnicity, deprivation).",
+          "status": "pass",
+          "note": null
+        },
+        {
+          "id": "B.4.1",
+          "description": "Equalized-odds difference across protected attributes within an acceptable, documented threshold.",
+          "status": "tighten",
+          "note": "IMD equalized-odds worst delta = +0.093"
+        },
+        {
+          "id": "B.4.2",
+          "description": "Most-deprived-quintile true-positive-rate gap within 0.05 absolute of the reference baseline; gaps above 0.05 require documented mitigation.",
+          "status": "tighten",
+          "note": "IMD equalized-odds worst delta = +0.093"
+        },
+        {
+          "id": "B.5.2",
+          "description": "Human-readable algorithmic transparency record (model card or equivalent) published and referenced in this report.",
+          "status": "pass",
+          "note": null
+        },
+        {
+          "id": "B.7.1",
+          "description": "Mechanism for clinicians to override individual model outputs, with audit logging of overrides.",
+          "status": "pass",
+          "note": null
+        }
+      ]
+    },
+    {
+      "framework": "NHS Core20PLUS5",
+      "verdict": "tighten",
+      "passed": 4,
+      "tightened": 1,
+      "blocked": 0,
+      "items": [
+        {
+          "id": "C20.1",
+          "description": "Audit run includes a Core20 (IMD-1 most-deprived quintile) slice with adequate cell size for stable estimates.",
+          "status": "pass",
+          "note": null
+        },
+        {
+          "id": "C20.2",
+          "description": "Equalized-odds gap on Core20 within tightened threshold (0.10 abs).",
+          "status": "tighten",
+          "note": "IMD equalized-odds worst delta = +0.093"
+        },
+        {
+          "id": "PLUS.ETHNIC",
+          "description": "Ethnicity slice computed across at least four ONS ethnic groups, no group with sample size below the minimum cell threshold.",
+          "status": "pass",
+          "note": "Ethnicity worst cell: equalized_odds=+0.019 Δ=+0.019"
+        },
+        {
+          "id": "FIVE.CVD",
+          "description": "Cardiovascular-disease cohort representation documented if the model is used in a CVD pathway.",
+          "status": "pass",
+          "note": null
+        },
+        {
+          "id": "FIVE.MAT",
+          "description": "Maternity cohort representation documented if the model is used in a maternity pathway.",
+          "status": "pass",
+          "note": null
+        }
+      ]
+    },
+    {
+      "framework": "UK GDPR Article 22",
+      "verdict": "pass",
+      "passed": 4,
+      "tightened": 0,
+      "blocked": 0,
+      "items": [
+        {
+          "id": "ART22.1",
+          "description": "The model output is not a sole basis for any decision producing legal or similarly significant effects.",
+          "status": "pass",
+          "note": null
+        },
+        {
+          "id": "ART22.2",
+          "description": "Meaningful human review is documented for every model-driven decision pathway.",
+          "status": "pass",
+          "note": null
+        },
+        {
+          "id": "ART22.3",
+          "description": "Right to explanation: model outputs are accompanied by a patient-facing reason code.",
+          "status": "pass",
+          "note": null
+        },
+        {
+          "id": "ART22.4",
+          "description": "Right to appeal: an appeal pathway is documented and routed to a named accountable role.",
+          "status": "pass",
+          "note": null
+        }
+      ]
+    },
+    {
+      "framework": "HIPAA (US)",
+      "verdict": "pass",
+      "passed": 7,
+      "tightened": 0,
+      "blocked": 0,
+      "items": [
+        {
+          "id": "SEC.308.a.1.A",
+          "description": "§164.308(a)(1)(ii)(A) Risk Analysis — Conduct an accurate and thorough assessment of the potential risks and vulnerabilities to ePHI when used to train, validate, or score model predictions. Required Admin Safeguard.",
+          "status": "pass",
+          "note": null
+        },
+        {
+          "id": "SEC.308.a.1.B",
+          "description": "§164.308(a)(1)(ii)(B) Risk Management — Implement security measures sufficient to reduce model-related risks and vulnerabilities to a reasonable and appropriate level (NIST 800-66r2 §3.4.1).",
+          "status": "pass",
+          "note": null
+        },
+        {
+          "id": "SEC.312.b",
+          "description": "§164.312(b) Audit Controls — Implement hardware, software, and procedural mechanisms that record and examine activity in information systems that contain or use ePHI, including model inferences (NIST 800-66r2 §5.2.7).",
+          "status": "pass",
+          "note": null
+        },
+        {
+          "id": "SEC.312.c.1",
+          "description": "§164.312(c)(1) Integrity — Implement policies and procedures to protect model outputs and the ePHI they reference from improper alteration or destruction.",
+          "status": "pass",
+          "note": null
+        },
+        {
+          "id": "PRV.514.b",
+          "description": "§164.514(b) De-identification — When ePHI is used for model training, apply Safe Harbor (remove 18 identifiers) or Expert Determination, and document the method. The audit must indicate which path was used.",
+          "status": "pass",
+          "note": null
+        },
+        {
+          "id": "PRV.502.b",
+          "description": "§164.502(b) Minimum Necessary — Limit training-feature scope to the minimum ePHI necessary to accomplish the modeling purpose; document the exclusion rationale for fields not used.",
+          "status": "pass",
+          "note": null
+        },
+        {
+          "id": "PRV.524",
+          "description": "§164.524 Right of Access — The covered entity supports a patient's right to request and obtain a copy of their PHI, including model outputs about them retained in the designated record set.",
+          "status": "pass",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "overall_verdict": "tighten",
+  "notes": null
+}

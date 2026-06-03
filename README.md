@@ -21,7 +21,7 @@ path-mounted under the apex — no edits to the live `johndegraft-app` repo).
 | M2b | `draft-actions-mcp` server + handshake panel | `/inspector` |
 | **M3a — live** | LangSmith dataset `agentic-chat-inspector-golden-set-v1` (10 prompts) + 5 custom evaluators (4 wrap clinical-rag-eval judges, 1 native tool-use) + experiment runner | `/inspector` |
 | **M3b — live** | Prompt Hub commits (`v1`, `v2`) + annotation queue `agentic-chat-inspector-tool-use-review` + online evaluator `online.phi_secret_leakage` | `/inspector` |
-| M4a | `equity-audit` package + interactive fairness dashboard | `/equity` |
+| **M4a — live** | `equity-audit` Python package (4 framework overlays: NICE ESF Tier B · NHS Core20PLUS5 · UK GDPR Art. 22 · HIPAA per NIST SP 800-66r2) + `HealthEquityEvaluator` as 7th LangSmith evaluator + interactive `/equity` dashboard backed by a pre-baked TIGHTEN audit fixture | `/equity` |
 | M4b | Recruiter polish + Vercel apex path deploy | — |
 
 ---

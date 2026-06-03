@@ -1,0 +1,27 @@
+framework: NICE ESF Tier B
+version: 2024-08
+items:
+  - id: B.2.1
+    description: >-
+      Documented data lineage from source to training feature, with
+      privacy-preserving processing where applicable.
+  - id: B.3.4
+    description: >-
+      Performance evaluated on a representative reference population, including
+      relevant demographic subgroups (age, sex, ethnicity, deprivation).
+  - id: B.4.1
+    description: >-
+      Equalized-odds difference across protected attributes within an
+      acceptable, documented threshold.
+  - id: B.4.2
+    description: >-
+      Most-deprived-quintile true-positive-rate gap within 0.05 absolute of the
+      reference baseline; gaps above 0.05 require documented mitigation.
+  - id: B.5.2
+    description: >-
+      Human-readable algorithmic transparency record (model card or equivalent)
+      published and referenced in this report.
+  - id: B.7.1
+    description: >-
+      Mechanism for clinicians to override individual model outputs, with
+      audit logging of overrides.

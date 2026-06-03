@@ -2,11 +2,12 @@
 name = "agentic-chat-inspector-evals"
 version = "0.1.0"
 description = "LangSmith evaluators + dataset + experiment runner for the agentic-chat-inspector portfolio project. Wraps clinical-rag-eval judges as @run_evaluator functions and adds a tool-use correctness evaluator."
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.14"
 dependencies = [
     "langsmith>=0.4.40",
     "langchain-core>=0.3",
     "clinical-rag-eval @ file:///Users/john/Git/clinical-rag-eval",
+    "equity-audit @ file:///Users/john/Git/agentic-chat-inspector/equity_audit",
     "httpx>=0.27",
     "pydantic>=2.5",
     "typer>=0.12",

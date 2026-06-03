@@ -1,0 +1,38 @@
+framework: HIPAA (US)
+version: NIST SP 800-66r2 (Feb 2024) — 45 CFR Part 164 Subparts C & E
+items:
+  - id: SEC.308.a.1.A
+    description: >-
+      §164.308(a)(1)(ii)(A) Risk Analysis — Conduct an accurate and thorough
+      assessment of the potential risks and vulnerabilities to ePHI when used
+      to train, validate, or score model predictions. Required Admin Safeguard.
+  - id: SEC.308.a.1.B
+    description: >-
+      §164.308(a)(1)(ii)(B) Risk Management — Implement security measures
+      sufficient to reduce model-related risks and vulnerabilities to a
+      reasonable and appropriate level (NIST 800-66r2 §3.4.1).
+  - id: SEC.312.b
+    description: >-
+      §164.312(b) Audit Controls — Implement hardware, software, and procedural
+      mechanisms that record and examine activity in information systems that
+      contain or use ePHI, including model inferences (NIST 800-66r2 §5.2.7).
+  - id: SEC.312.c.1
+    description: >-
+      §164.312(c)(1) Integrity — Implement policies and procedures to protect
+      model outputs and the ePHI they reference from improper alteration or
+      destruction.
+  - id: PRV.514.b
+    description: >-
+      §164.514(b) De-identification — When ePHI is used for model training,
+      apply Safe Harbor (remove 18 identifiers) or Expert Determination, and
+      document the method. The audit must indicate which path was used.
+  - id: PRV.502.b
+    description: >-
+      §164.502(b) Minimum Necessary — Limit training-feature scope to the
+      minimum ePHI necessary to accomplish the modeling purpose; document
+      the exclusion rationale for fields not used.
+  - id: PRV.524
+    description: >-
+      §164.524 Right of Access — The covered entity supports a patient's
+      right to request and obtain a copy of their PHI, including model
+      outputs about them retained in the designated record set.

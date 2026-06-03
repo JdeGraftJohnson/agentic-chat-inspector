@@ -1,0 +1,19 @@
+framework: UK GDPR Article 22
+version: 2021
+items:
+  - id: ART22.1
+    description: >-
+      The model output is not a sole basis for any decision producing legal
+      or similarly significant effects.
+  - id: ART22.2
+    description: >-
+      Meaningful human review is documented for every model-driven decision
+      pathway.
+  - id: ART22.3
+    description: >-
+      Right to explanation: model outputs are accompanied by a
+      patient-facing reason code.
+  - id: ART22.4
+    description: >-
+      Right to appeal: an appeal pathway is documented and routed to a
+      named accountable role.

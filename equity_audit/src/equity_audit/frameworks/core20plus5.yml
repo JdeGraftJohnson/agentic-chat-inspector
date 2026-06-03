@@ -1,0 +1,22 @@
+framework: NHS Core20PLUS5
+version: 2024
+items:
+  - id: C20.1
+    description: >-
+      Audit run includes a Core20 (IMD-1 most-deprived quintile) slice with
+      adequate cell size for stable estimates.
+  - id: C20.2
+    description: >-
+      Equalized-odds gap on Core20 within tightened threshold (0.10 abs).
+  - id: PLUS.ETHNIC
+    description: >-
+      Ethnicity slice computed across at least four ONS ethnic groups, no group
+      with sample size below the minimum cell threshold.
+  - id: FIVE.CVD
+    description: >-
+      Cardiovascular-disease cohort representation documented if the model is
+      used in a CVD pathway.
+  - id: FIVE.MAT
+    description: >-
+      Maternity cohort representation documented if the model is used in a
+      maternity pathway.

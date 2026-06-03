@@ -9,12 +9,20 @@ from typing import Any
 from langsmith import Client
 from langsmith.evaluation import evaluate
 
+from equity_audit.langsmith_plugin import HealthEquityEvaluator
+
 from .clinical import CLINICAL_EVALUATORS
 from .dataset import DATASET_NAME
+from .online import online_leakage_evaluator
 from .target import run_chat_target
 from .tooluse import tool_use_correctness_evaluator
 
-EVALUATORS = [*CLINICAL_EVALUATORS, tool_use_correctness_evaluator]
+EVALUATORS = [
+    *CLINICAL_EVALUATORS,
+    tool_use_correctness_evaluator,
+    HealthEquityEvaluator,
+    online_leakage_evaluator,
+]
 
 
 def _short_sha() -> str:
