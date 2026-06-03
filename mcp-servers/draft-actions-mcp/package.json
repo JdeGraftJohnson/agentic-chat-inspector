@@ -1,0 +1,11 @@
+{
+  "name": "draft-actions-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Simulated write-action MCP server. Tools (email.draft, file.write, calendar.draft) write only to a sandboxed /tmp directory and never reach external systems.",
+  "type": "module",
+  "main": "./server.ts",
+  "bin": {
+    "draft-actions-mcp": "./bin/stdio.ts"
+  }
+}
